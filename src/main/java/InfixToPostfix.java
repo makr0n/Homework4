@@ -5,8 +5,10 @@ import java.util.Map;
 
 public class InfixToPostfix {
     public static void main(String[] args) {
-        String infix = "4*(3-2)*(5-2)";
-        System.out.println(infixToPostfix(infix));
+        String infix = "9*(3+2)/(5-3)";
+        String postfix = infixToPostfix(infix);
+        System.out.println(postfix);
+        System.out.println(evaluatePostfix(postfix));
     }
 
     public static int priorityMatch(char operator) {
@@ -54,4 +56,39 @@ public class InfixToPostfix {
 
         return result.toString();
     }
+
+    static double evaluatePostfix(String exp) {
+        Deque<Double> stack = new ArrayDeque<>();
+
+        for (int i = 0; i < exp.length(); i++) {
+            char c = exp.charAt(i);
+
+            if (Character.isDigit(c)) {
+                stack.push((double) (c - '0'));
+            } else {
+                double val1 = stack.pop();
+                double val2 = stack.pop();
+
+                switch (c) {
+                    case '+':
+                        stack.push(val2 + val1);
+                        break;
+                    case '-':
+                        stack.push(val2 - val1);
+                        break;
+                    case '/':
+                        stack.push(val2 / val1);
+                        break;
+                    case '*':
+                        stack.push(val2 * val1);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        return stack.pop();
+    }
+
+
 }
