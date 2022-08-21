@@ -4,6 +4,10 @@ public class Main {
         String request = "пожалуйста форматируйте код";
         // исправили теперь build succcessful
         if (isFormatted) {
+
         }
+
     }
+
+
 }
